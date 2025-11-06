@@ -1,7 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { TabContext } from '../store/TabsContext';
 import { useContext } from 'react';
-import PleaseSelectTab from './PleaseSelectTab';
 
 const TabItemPage = () => {
   const { tabId } = useParams();
@@ -9,7 +8,7 @@ const TabItemPage = () => {
   const selectedTab = tabs.find(tab => tab.id === tabId);
 
   if (!selectedTab) {
-    return <PleaseSelectTab />;
+    return <p>Please select a tab</p>;
   }
 
   return <p>{selectedTab.content}</p>;

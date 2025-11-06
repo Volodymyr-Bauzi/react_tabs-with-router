@@ -1,4 +1,4 @@
-import { NavLink, Outlet, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import cn from 'classnames';
 import { useContext } from 'react';
 import { TabContext } from '../store/TabsContext';
@@ -6,6 +6,8 @@ import { TabContext } from '../store/TabsContext';
 const TabsPage = () => {
   const tabs = useContext(TabContext);
   const { tabId } = useParams();
+
+  const activeTab = tabs.find(tab => tab.id === tabId);
 
   return (
     <>
@@ -22,14 +24,16 @@ const TabsPage = () => {
                   'is-active': tab.id === tabId,
                 })}
               >
-                <NavLink to={tab.id}>{tab.title}</NavLink>
+                <Link to={`/tabs/${tab.id}`} data-cy="TabLink">
+                  {tab.title}
+                </Link>
               </li>
             ))}
           </ul>
         </div>
 
         <div className="block" data-cy="TabContent">
-          <Outlet />
+          {activeTab ? <p>{activeTab.content}</p> : <p>Please select a tab</p>}
         </div>
       </div>
     </>
